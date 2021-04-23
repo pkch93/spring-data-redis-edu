@@ -1,0 +1,4 @@
+rootProject.name = 'spring-data-redis-edu'
+include 'java-serialize'
+include 'json-serialize'
+
