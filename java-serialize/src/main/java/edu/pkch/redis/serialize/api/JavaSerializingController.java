@@ -18,7 +18,7 @@ public class JavaSerializingController {
     private static final Logger logger = LoggerFactory.getLogger(JavaSerializingController.class);
 
     @Resource(name = "redisTemplate")
-    private ValueOperations<String, Object> valueOperations;
+    private ValueOperations<String, Person> valueOperations;
 
     @GetMapping("/serialize")
     public void serialize() {
@@ -28,7 +28,7 @@ public class JavaSerializingController {
 
     @GetMapping(value = "/deserialize")
     public ResponseEntity<Person> deserialize() {
-        Person person = (Person) valueOperations.get(JAVA_SERIALIZE_KEY);
+        Person person = valueOperations.get(JAVA_SERIALIZE_KEY);
         logger.info("deserialize person. name: {}, age: {}", person.getName(), person.getAge());
         return ResponseEntity.ok(person);
     }
