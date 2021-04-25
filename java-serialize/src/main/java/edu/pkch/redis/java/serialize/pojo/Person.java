@@ -1,11 +1,10 @@
-package edu.pkch.redis.serialize.pojo;
+package edu.pkch.redis.java.serialize.pojo;
 
-public class Person {
+import java.io.Serializable;
 
+public class Person implements Serializable {
     private String name;
     private int age;
-
-    private Person() {}
 
     public Person(String name, int age) {
         this.name = name;

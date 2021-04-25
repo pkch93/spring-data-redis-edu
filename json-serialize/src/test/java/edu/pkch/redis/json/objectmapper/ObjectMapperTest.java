@@ -1,11 +1,11 @@
-package edu.pkch.redis.objectmapper;
+package edu.pkch.redis.json.objectmapper;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.pkch.redis.serialize.pojo.Person;
+import edu.pkch.redis.json.serialize.pojo.Person;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.GenericTypeResolver;
 
@@ -24,7 +24,7 @@ class ObjectMapperTest {
     void readValueWithoutActivateDefaultTyping() throws JsonProcessingException {
         // given
         ObjectMapper objectMapper = new ObjectMapper();
-        String personJson = "{\"@class\":\"edu.pkch.redis.serialize.pojo.Person\",\"name\":\"pkch\",\"age\":29}";
+        String personJson = "{\"@class\":\"edu.pkch.redis.json.serialize.pojo.Person\",\"name\":\"pkch\",\"age\":29}";
 
         // when
         LinkedHashMap<String, Object> actual = (LinkedHashMap<String, Object>) objectMapper.readValue(personJson, Object.class);
@@ -46,10 +46,10 @@ class ObjectMapperTest {
         // given
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.activateDefaultTyping(objectMapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
-        String personJson = "{\"@class\":\"edu.pkch.redis.serialize.pojo.Person\",\"name\":\"pkch\",\"age\":29}";
+        String personJson = "{\"@class\":\"edu.pkch.redis.json.serialize.pojo.Person\",\"name\":\"pkch\",\"age\":29}";
 
         // when
-        Person actual = (Person) objectMapper.readValue(personJson, Object.class);
+        Person actual = objectMapper.readValue(personJson, Person.class);
 
         // then
         assertThat(actual.getName()).isEqualTo("pkch");
@@ -68,7 +68,7 @@ class ObjectMapperTest {
         // given
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        String personJson = "{\"@class\":\"edu.pkch.redis.serialize.pojo.Person\",\"name\":\"pkch\",\"age\":29}";
+        String personJson = "{\"@class\":\"edu.pkch.redis.json.serialize.pojo.Person\",\"name\":\"pkch\",\"age\":29}";
 
         JavaType javaType = objectMapper.constructType(GenericTypeResolver.resolveType(Person.class, (Class<?>) null));
         // when

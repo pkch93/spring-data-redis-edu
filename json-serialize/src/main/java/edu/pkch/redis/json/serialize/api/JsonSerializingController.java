@@ -1,6 +1,6 @@
-package edu.pkch.redis.serialize.api;
+package edu.pkch.redis.json.serialize.api;
 
-import edu.pkch.redis.serialize.pojo.Person;
+import edu.pkch.redis.json.serialize.pojo.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.ValueOperations;
